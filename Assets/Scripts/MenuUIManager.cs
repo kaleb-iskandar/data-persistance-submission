@@ -6,23 +6,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEngine.SocialPlatforms.Impl;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 public class MenuUIManager : MonoBehaviour
 {
     [SerializeField] TMP_InputField playerNameInput;
-    public string playerName;
+    
 
-    public void SetLastPlayerData(string name,int score)
-    {
-        // handle when player data already available
-    }
     public bool IsPlayerNameNotEmpty()
     {
         if ((playerNameInput.text!="Type your name" || playerNameInput.text != "Type your name here please!") && playerNameInput.text.Length>0)
         {
-            playerName = playerNameInput.text;
             return true;
         }
         else { return false; }
@@ -31,7 +27,7 @@ public class MenuUIManager : MonoBehaviour
     {
         if (IsPlayerNameNotEmpty())
         {
-            MainManager.instance.PlayerName=playerName;
+            MenuManager.instance.playerName = playerNameInput.text;
             SceneManager.LoadScene(1);
         }
         else
@@ -52,10 +48,6 @@ public class MenuUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (IsPlayerNameNotEmpty())
-        {
-            playerNameInput.text = MainManager.instance.PlayerName;
-        }
     }
 
     // Update is called once per frame
